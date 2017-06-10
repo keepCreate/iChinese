@@ -2,6 +2,7 @@ package com.luojiahanyu.products.ichinese;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        this.hideActionBar();
         btn_login=(Button)findViewById(R.id.button2);
         btn_register=(Button)findViewById(R.id.button3);
         btn_qq=(ImageView)findViewById(R.id.imageView5);
@@ -48,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
+                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -94,7 +96,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * 隐藏ActionBar
+     */
+    private void hideActionBar() {
+        // Hide UI
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+    }
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -121,4 +132,5 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
 }

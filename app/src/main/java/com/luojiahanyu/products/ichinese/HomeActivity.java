@@ -1,5 +1,6 @@
 package com.luojiahanyu.products.ichinese;
 
+import android.app.ActionBar;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,19 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        this.hideActionBar();
+
+
+    }
+    /**
+     * 隐藏ActionBar
+     */
+    private void hideActionBar() {
+        // Hide UI
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
     }
     @Override
     public void onBackPressed() {
