@@ -83,31 +83,34 @@ public class RegisterActivity extends AppCompatActivity {
         sendMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String telnumber  =phone.getText().toString();
+               if(telnumber.length()>0) {
+                   new Thread() {
+                       @Override
+                       public void run() {
+                           code = getCode(telnumber);
+                       }
+                   }.start();
 
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            code=getCode();
-                        }
-                    }.start();
-
-                    sendMsg.setClickable(false);
-                    Toast.makeText(RegisterActivity.this, "验证码已发送，请注意查收", Toast.LENGTH_LONG).show();
-                    countDownTimer2 = new CountDownTimer(60000, 1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
+                   sendMsg.setClickable(false);
+                   Toast.makeText(RegisterActivity.this, "验证码已发送，请注意查收", Toast.LENGTH_LONG).show();
+                   countDownTimer2 = new CountDownTimer(60000, 1000) {
+                       @Override
+                       public void onTick(long millisUntilFinished) {
 
                            timer.setText((millisUntilFinished / 1000) + " seconds later again");
-                        }
+                       }
 
-                        @Override
-                        public void onFinish() {
-                            timer.setText("");
-                            sendMsg.setClickable(true);
-                        }
-                    };
-                    countDownTimer2.start();
-
+                       @Override
+                       public void onFinish() {
+                           timer.setText("");
+                           sendMsg.setClickable(true);
+                       }
+                   };
+                   countDownTimer2.start();
+               }else{
+                   Toast.makeText(RegisterActivity.this, "请填写手机号", Toast.LENGTH_LONG).show();
+               }
             }
         });
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -173,7 +176,7 @@ public class RegisterActivity extends AppCompatActivity {
      * POST请求操作
      *
      */
-    public String getCode() {
+    public String getCode(String phone) {
         String result="";
         try {
             String spec="http://47.94.136.193:3000/verify";
@@ -187,7 +190,7 @@ public class RegisterActivity extends AppCompatActivity {
             httpURLConnection.setConnectTimeout(5000);
             // 传递的数据
             JSONObject obj = new JSONObject();
-            obj.put("request","verifyCode" );
+            obj.put("phone",phone);
             OutputStream out = httpURLConnection.getOutputStream();
             String content = String.valueOf(obj);
             out.write(content.getBytes());
