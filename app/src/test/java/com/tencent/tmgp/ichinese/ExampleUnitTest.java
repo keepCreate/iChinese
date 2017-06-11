@@ -1,4 +1,4 @@
-package com.luojiahanyu.products.ichinese;
+package com.tencent.tmgp.ichinese;
 
 import org.junit.Test;
 

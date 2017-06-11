@@ -1,4 +1,4 @@
-package com.luojiahanyu.products.ichinese;
+package com.tencent.tmgp.ichinese;
 
 import android.app.Activity;
 import android.os.Handler;

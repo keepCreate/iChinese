@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.luojiahanyu.products.ichinese">
+    package="com.tencent.tmgp.ichinese">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -14,16 +14,16 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.tencent.tmgp.ichinese.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name="com.tencent.tmgp.ichinese.HomeActivity" />
+        <activity android:name="com.tencent.tmgp.ichinese.LoginActivity" />
+        <activity android:name="com.tencent.tmgp.ichinese.RegisterActivity"></activity>
     </application>
 
 </manifest>

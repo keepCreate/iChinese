@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cardview_shadow_end_color"
-    tools:context="com.luojiahanyu.products.ichinese.RegisterActivity">
+    tools:context="com.tencent.tmgp.ichinese.RegisterActivity">
 
     <TextView
         android:id="@+id/textView6"

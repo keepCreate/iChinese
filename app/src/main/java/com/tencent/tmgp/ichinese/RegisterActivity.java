@@ -1,24 +1,17 @@
-package com.luojiahanyu.products.ichinese;
+package com.tencent.tmgp.ichinese;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.method.KeyListener;
-import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,8 +61,10 @@ public class RegisterActivity extends AppCompatActivity {
            @Override
            public void onFocusChange(View v, boolean hasFocus) {
                if (hasFocus){
+                        if(getCode.getText().toString().contains("Click")){
+                            getCode.setText("");
+                        }
 
-                        getCode.setText("");
 
                }else{
                    if (!(getCode.getText().toString().length()>0)){

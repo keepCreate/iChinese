@@ -1,4 +1,4 @@
-package com.luojiahanyu.products.ichinese;
+package com.tencent.tmgp.ichinese;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
