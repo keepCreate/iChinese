@@ -9,12 +9,19 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:actionBarStyle">@style/my_actionbar_style</item>
     </style>
+
     <style name="my_actionbar_style" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">	#8A8A8A</item>
+        <item name="android:background">#8A8A8A</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
 
 </resources>
