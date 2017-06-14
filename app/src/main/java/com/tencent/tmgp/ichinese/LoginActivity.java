@@ -26,6 +26,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 
+import widget.MsgHandler;
+
 public class LoginActivity extends AppCompatActivity {
     Button btn_login,btn_register;
     ImageView btn_qq,btn_wechat,btn_try;

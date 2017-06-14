@@ -56,7 +56,7 @@
     <!--白杏色 -->
     <color name="mistyrose">#FFE4E1</color>
     <!--浅玫瑰色 -->
-    <color name="bisque">#FFE4C4</color>
+    <color name="bisque">#ffe4c4</color>
     <!--桔黄色 -->
     <color name="moccasin">#FFE4B5</color>
     <!--鹿皮色 -->
@@ -72,7 +72,7 @@
     <!--亮粉红色 -->
     <color name="orange">#FFA500</color>
     <!--橙色 -->
-    <color name="lightsalmon">#FFA07A</color>
+    <color name="lightsalmon">#ffa07a</color>
     <!--亮肉色 -->
     <color name="darkorange">#FF8C00</color>
     <!--暗桔黄色 -->
@@ -104,7 +104,7 @@
     <!--鲜肉色 -->
     <color name="ghostwhite">#F8F8FF</color>
     <!--幽灵白 -->
-    <color name="mintcream">#F5FFFA</color>
+    <color name="mintcream">#f5fffa</color>
     <!--薄荷色 -->
     <color name="whitesmoke">#F5F5F5</color>
     <!--烟白色 -->
@@ -121,6 +121,7 @@
     <color name="aliceblue">#F0F8FF</color>
     <!--艾利斯兰 -->
     <color name="khaki">#F0E68C</color>
+
     <!--黄褐色 -->
     <color name="lightcoral">#F08080</color>
     <!--亮珊瑚色 -->

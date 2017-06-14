@@ -24,6 +24,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 
+import widget.MsgHandler;
+
 public class RegisterActivity extends AppCompatActivity {
     Button btn_register;
     EditText getCode;

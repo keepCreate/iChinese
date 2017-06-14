@@ -1,4 +1,4 @@
-package com.tencent.tmgp.ichinese;
+package widget;
 
 import android.app.Activity;
 import android.os.Handler;

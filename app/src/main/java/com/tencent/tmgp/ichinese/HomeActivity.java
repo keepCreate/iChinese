@@ -1,26 +1,22 @@
 package com.tencent.tmgp.ichinese;
 
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.SearchView;
 import android.widget.TextView;
 
-import java.io.InputStream;
-import java.net.URL;
+import mainFragments.FreindsFragment;
+import mainFragments.HomeFragment;
+import mainFragments.ReviewFragment;
+import mainFragments.ShopFragment;
+import mainFragments.VideoFragment;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     // 定义5个Fragment对象

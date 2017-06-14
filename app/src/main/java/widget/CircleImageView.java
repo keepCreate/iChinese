@@ -1,4 +1,4 @@
-package com.tencent.tmgp.ichinese;
+package widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -19,9 +19,10 @@ import android.os.Build;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
+import com.tencent.tmgp.ichinese.R;
 
 
-    public class CircleImageView extends AppCompatImageView {
+public class CircleImageView extends AppCompatImageView {
 
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 
