@@ -11,8 +11,6 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="0dp"
-        android:layout_marginTop="0dp"
         android:layout_weight="1"
         android:background="@color/whitesmoke"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -26,10 +24,7 @@
         android:layout_height="60dp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/linearLayout">
         <!--四个部分都一样：ImageView + TextView-->

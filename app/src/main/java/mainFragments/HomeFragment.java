@@ -46,6 +46,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
         super.onActivityCreated(savedInstanceState);
         mAdapter = new MyFragmentPagerAdapter(getActivity().getSupportFragmentManager());
         vpager = (ViewPager) getActivity().findViewById(R.id.vpager);
+
         vpager.setAdapter(mAdapter);
         vpager.setCurrentItem(0);
 
