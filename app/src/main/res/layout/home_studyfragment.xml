@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_weight="4"
     android:background="@color/blanchedalmond"
     android:elevation="9dp"
     android:orientation="vertical"
     android:weightSum="1"
-    app:layout_collapseParallaxMultiplier="0.0">
+    app:layout_collapseParallaxMultiplier="1.0">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="1dp"
         android:layout_weight="60.50"
         android:background="@color/lightblue"
@@ -148,10 +148,10 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end"
                 android:layout_gravity="end"
-                android:orientation="horizontal"
-                android:layout_marginLeft="20dp">
+                android:layout_marginLeft="20dp"
+                android:gravity="end"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView19"
@@ -210,14 +210,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/button9"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="22dp"
                 android:layout_weight="0.35"
                 android:background="@color/bisque"
@@ -226,7 +226,7 @@
             <Button
                 android:id="@+id/button8"
                 android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="15dp"
                 android:layout_weight="0.56"
