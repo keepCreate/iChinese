@@ -14,23 +14,24 @@ import com.tencent.tmgp.ichinese.R;
 
 import java.util.Calendar;
 
+import mainFragments.HomeFragment;
 import mainFragments.VideoFragment;
 
 /**
  * Created by VULCNAVSeries on 2017/6/15.
  */
 
-public class MyVideoRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MyHomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int NORMAL_ITEM = 0;
     private static final int GROUP_ITEM = 1;
     DisplayImageOptions options = new DisplayImageOptions.Builder()
             .showImageOnLoading(R.drawable.ic_menu_gallery) // resource or drawable
             .showImageForEmptyUri(R.drawable.ic_menu_slideshow) // resource or drawable
             .build();
-    private VideoFragment mFragment;
+    private HomeFragment mFragment;
     private String[] mDataList;
     private LayoutInflater mLayoutInflater;
-    public MyVideoRecyclerViewAdapter(VideoFragment mFragment, String[] mDataList) {
+    public MyHomeRecyclerViewAdapter(HomeFragment mFragment, String[] mDataList) {
         this.mFragment = mFragment;
         this.mDataList = mDataList;
         mLayoutInflater = LayoutInflater.from(mFragment.getActivity());
