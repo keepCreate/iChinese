@@ -95,7 +95,7 @@ public class MyVideoRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     void bindNormalItem(String str, TextView newsTitle, ImageView newsIcon) {
 
-        ImageLoader.getInstance().displayImage("http://www.qqjia.com/z/01/tu4079_5.jpg",newsIcon,options);
+        ImageLoader.getInstance().displayImage("http://47.94.136.193:3000/source/new.png",newsIcon,options);
 //        if (entity.getIconUrl().isEmpty()) {
 //
 //            if (newsIcon.getVisibility() != View.GONE)

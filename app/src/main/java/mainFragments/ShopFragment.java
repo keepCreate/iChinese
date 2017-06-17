@@ -11,6 +11,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 
 import com.tencent.tmgp.ichinese.R;
 
@@ -19,6 +20,7 @@ import com.tencent.tmgp.ichinese.R;
  */
 
 public class ShopFragment extends android.support.v4.app.Fragment {
+    SearchView m_urlInput;
     WebView webView;
     @Nullable
     @Override
@@ -30,7 +32,31 @@ public class ShopFragment extends android.support.v4.app.Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        webView=(WebView)getActivity().findViewById(R.id.taobaoview);
+        m_urlInput=(SearchView)getActivity().findViewById(R.id.urlInput);
+        webView=(WebView)getActivity().findViewById(R.id.weixinview);
+        m_urlInput.setIconifiedByDefault(false);
+        m_urlInput.setQueryHint("输入网址");
+        m_urlInput.setIconified(false);
+       m_urlInput.setOnCloseListener(new SearchView.OnCloseListener() {
+
+                                         @Override
+                                         public boolean onClose() {
+                                             // to avoid click x button and the edittext hidden
+                                             return true;
+                                         }
+                                     });
+      m_urlInput.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+          @Override
+          public boolean onQueryTextSubmit(String query) {
+              webView.loadUrl(query);
+              return false;
+          }
+
+          @Override
+          public boolean onQueryTextChange(String newText) {
+              return false;
+          }
+      });
         webView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -48,7 +74,7 @@ public class ShopFragment extends android.support.v4.app.Fragment {
             }
         });
 
-                webView.loadUrl("https://www.baidu.com/");
+
 
 
 

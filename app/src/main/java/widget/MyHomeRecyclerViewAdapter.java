@@ -1,5 +1,6 @@
 package widget;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -7,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tencent.tmgp.ichinese.HomeActivity;
+import com.tencent.tmgp.ichinese.NewsDetailActivity;
 import com.tencent.tmgp.ichinese.R;
 
 import java.util.Calendar;
@@ -24,6 +28,8 @@ import mainFragments.VideoFragment;
 public class MyHomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int NORMAL_ITEM = 0;
     private static final int GROUP_ITEM = 1;
+   private FragmentActivity mContext;
+    String url="http://mp.weixin.qq.com/s/As_XAG3u6dRfko6-R8ek8w";
     DisplayImageOptions options = new DisplayImageOptions.Builder()
             .showImageOnLoading(R.drawable.ic_menu_gallery) // resource or drawable
             .showImageForEmptyUri(R.drawable.ic_menu_slideshow) // resource or drawable
@@ -31,7 +37,23 @@ public class MyHomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     private HomeFragment mFragment;
     private String[] mDataList;
     private LayoutInflater mLayoutInflater;
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    private OnItemClickListener mOnItemClickListener;
+
+    public OnItemClickListener getmOnItemClickListener() {
+        return mOnItemClickListener;
+    }
+
+    public void setmOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
+
     public MyHomeRecyclerViewAdapter(HomeFragment mFragment, String[] mDataList) {
+        this.mContext=mFragment.getActivity();
         this.mFragment = mFragment;
         this.mDataList = mDataList;
         mLayoutInflater = LayoutInflater.from(mFragment.getActivity());
@@ -57,7 +79,7 @@ public class MyHomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
      * @param i 数据源list的下标
      */
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder,final int i) {
        String str= mDataList[i];
 
         if (null == str)
@@ -65,9 +87,29 @@ public class MyHomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
         if (viewHolder instanceof GroupItemHolder) {
             bindGroupItem(str, (GroupItemHolder) viewHolder);
+            ((GroupItemHolder)viewHolder).view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showNewsDetail(url,i);
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(v, i);
+                    }
+                }
+            });
+
         } else {
             NormalItemHolder holder = (NormalItemHolder) viewHolder;
             bindNormalItem(str, holder.newsTitle, holder.newsIcon);
+            ((NormalItemHolder)viewHolder).view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showNewsDetail(url,i);
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(v, i);
+                    }
+                }
+            });
+
         }
     }
     @Override
@@ -117,10 +159,10 @@ public class MyHomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         holder.newsTime.setText(""+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DATE));
     }
 
-//    void showNewsDetail(int pos) {
-//        NewsListEntity entity = mDataList.get(pos);
-//        NewsDetailActivity.actionStart(mContext, entity.getNewsID(), entity.getRecommendAmount(), entity.getCommentAmount());
-//    }
+    void showNewsDetail(String url,int pos) {
+        Toast.makeText(mContext,"位置"+pos,Toast.LENGTH_SHORT).show();
+        NewsDetailActivity.actionStart(mContext,url);
+    }
 
     /**
      * 新闻标题
@@ -128,17 +170,13 @@ public class MyHomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
      class NormalItemHolder extends RecyclerView.ViewHolder {
         TextView newsTitle;
         ImageView newsIcon;
-
-        public NormalItemHolder(View itemView) {
+        public View view;
+        public NormalItemHolder(final View itemView) {
             super(itemView);
+            this.view=itemView;
             newsTitle = (TextView) itemView.findViewById(R.id.base_swipe_item_title);
             newsIcon = (ImageView) itemView.findViewById(R.id.base_swipe_item_icon);
-            itemView.findViewById(R.id.base_swipe_item_container).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //showNewsDetail(getPosition());
-                }
-            });
+
         }
     }
 
@@ -147,9 +185,10 @@ public class MyHomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
      */
     class GroupItemHolder extends NormalItemHolder {
         TextView newsTime;
-
+        public View view;
         public GroupItemHolder(View itemView) {
             super(itemView);
+            this.view=itemView;
             newsTime = (TextView) itemView.findViewById(R.id.base_swipe_group_item_time);
         }
     }

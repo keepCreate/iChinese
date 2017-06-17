@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
@@ -60,7 +61,7 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
     private MyFragmentPagerAdapter mAdapter;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter adapter;
+    private MyHomeRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
@@ -85,6 +86,7 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
         circleImageView=(CircleImageView)getActivity().findViewById(R.id.userImage);
         Drawable drawable=getActivity().getDrawable(R.drawable.hugh);
         circleImageView.setImageDrawable(drawable);
+
 
         scrollingView=(ScrollView)getActivity().findViewById(R.id.home_scroll);
 
@@ -131,7 +133,6 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
         recyclerView.setLayoutManager(layoutManager);
         adapter=new MyHomeRecyclerViewAdapter(this,list);
         recyclerView.setAdapter(adapter);
-
         scrollingView.setOnTouchListener(new View.OnTouchListener() {
             private int lastY = 0;
             private int touchEventId = -9983761;
@@ -177,7 +178,12 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
             }
 
         });
-
+//        adapter.setmOnItemClickListener(new MyHomeRecyclerViewAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                Toast.makeText(getActivity(), "点击了" + position + "位置", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
     }
