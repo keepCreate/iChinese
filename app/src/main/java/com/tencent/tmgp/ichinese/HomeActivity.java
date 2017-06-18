@@ -3,9 +3,12 @@ package com.tencent.tmgp.ichinese;
 import android.content.DialogInterface;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -18,7 +21,9 @@ import mainFragments.ReviewFragment;
 import mainFragments.ShopFragment;
 import mainFragments.VideoFragment;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener , HomeFragment.OnSlideListener{
+    private DrawerLayout drawerLayout;
     // 定义5个Fragment对象
     private HomeFragment homeFragment;
     private ReviewFragment reviewFragment;
@@ -51,6 +56,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     // 定义FragmentManager对象管理器
     private FragmentManager fragmentManager;
 
+    private float mFirstX = 0;      // 手指按下时的x坐标
+    private int mSensity = 30;      // 菜单打开关闭的手势范围
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +67,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         fragmentManager=getSupportFragmentManager();
         initView(); // 初始化界面控件
         setChioceItem(0); // 初始化页面加载时显示第一个选项卡
+
+        drawerLayout = (DrawerLayout)findViewById(R.id.drawerlayout);
+        initEvent();
 
     }
 
@@ -112,6 +123,84 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+    private void initEvent() {
+        drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+
+            /**
+             * 当抽屉滑动状态改变的时候被调用
+             * 状态值是STATE_IDLE（闲置--0）, STATE_DRAGGING（拖拽的--1）, STATE_SETTLING（固定--2）中之一。
+             * 抽屉打开的时候，点击抽屉，drawer的状态就会变成STATE_DRAGGING，然后变成STATE_IDLE
+             */
+            @Override
+            public void onDrawerStateChanged(int arg0) {
+
+            }
+
+            // 菜单滑动
+            @Override
+            public void onDrawerSlide(View arg0, float rate) {
+                // rate从0.0 ~ 1.0  菜单的显示率
+                // 可以设置菜单出现的效果  缩放、透明度变化  参考HorizontalScroll实现的菜单缩放
+            }
+
+            /**
+             * 当一个抽屉被完全打开的时候被调用
+             */
+            @Override
+            public void onDrawerOpened(View arg0) {
+
+            }
+            /**
+             * 当一个抽屉完全关闭的时候调用此方法
+             */
+            @Override
+            public void onDrawerClosed(View arg0) {
+
+            }
+        });
+    }
+
+
+    /**
+     * DrawerLayout只支持边缘滑动打开菜单
+     * 通过判断手势滑动的距离来增加打开菜单的手势范围 在屏幕范围内滑动均可打开关闭菜单
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mFirstX = ev.getX();
+                System.out.println("******************mfirst=" + mFirstX);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float curX = ev.getX();
+
+                // 向右滑动   预期效果：关闭右侧菜单 或 打开左侧菜单
+//                if(curX-mFirstX > mSensity){
+//                    drawerLayout.openDrawer(Gravity.LEFT);
+//                }
+                // 向左滑动
+                if(mFirstX-curX > mSensity){
+                    // 如果左侧菜单打开则关闭
+                    drawerLayout.closeDrawer(Gravity.LEFT);
+                }
+
+            default:
+                break;
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public void onslide(int id){
+        if (id == R.id.userImage)
+            drawerLayout.openDrawer(Gravity.LEFT);
+    }
+    public void onTabClick(View view){
+
+    }
+
     /**
      * 设置点击选项卡的事件处理
      *
