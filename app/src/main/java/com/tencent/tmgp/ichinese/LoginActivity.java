@@ -174,7 +174,7 @@ public class LoginActivity extends AppCompatActivity {
     public int loginByPost(String username, String pwd) {
         int result=0;
         try {
-            String spec="http://47.94.136.193:3000/signin";
+            String spec="http://47.94.136.193/signin";
             URL url=new URL(spec);
             HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
             httpURLConnection.setRequestMethod("POST");

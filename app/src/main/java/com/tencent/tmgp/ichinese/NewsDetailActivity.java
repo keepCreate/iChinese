@@ -30,6 +30,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         //启用支持javascript
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
 
     }

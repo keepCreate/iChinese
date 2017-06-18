@@ -1,8 +1,10 @@
 package com.tencent.tmgp.ichinese;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.mikepenz.iconics.context.IconicsContextWrapper;
+import com.mikepenz.iconics.context.IconicsLayoutInflater;
 
 import mainFragments.FreindsFragment;
 import mainFragments.HomeFragment;
@@ -34,11 +39,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private RelativeLayout thirdLayout;
     private RelativeLayout fourthLayout;
     private RelativeLayout fifthLayout;
-    private ImageView firstImage;
-    private ImageView secondImage;
-    private ImageView thirdImage;
-    private ImageView fourthImage;
-    private ImageView fifthImage;
+    private TextView firstImage;
+    private TextView secondImage;
+    private TextView thirdImage;
+    private TextView fourthImage;
+    private TextView fifthImage;
     private TextView firstText;
     private TextView secondText;
     private TextView thirdText;
@@ -46,13 +51,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private TextView fifthText;
     // 定义几个颜色
     private int white = 0xFFFFFFFF;
-    private int gray = 0xFF7597B3;
+    private int gray = 0xFF808080;
     private int dark = 0xff000000;
+    private int blue= 0xFF87CEFA;
     // 定义FragmentManager对象管理器
     private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         this.hideActionBar();
@@ -69,11 +76,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
 
 
-        firstImage = (ImageView) findViewById(R.id.first_image);
-        secondImage = (ImageView) findViewById(R.id.second_image);
-        thirdImage = (ImageView) findViewById(R.id.third_image);
-        fourthImage = (ImageView) findViewById(R.id.fourth_image);
-        fifthImage = (ImageView) findViewById(R.id.fifth_image);
+        firstImage = (TextView) findViewById(R.id.first_image);
+        secondImage = (TextView) findViewById(R.id.second_image);
+        thirdImage = (TextView) findViewById(R.id.third_image);
+        fourthImage = (TextView) findViewById(R.id.fourth_image);
+        fifthImage = (TextView) findViewById(R.id.fifth_image);
         firstText = (TextView) findViewById(R.id.first_text);
         secondText = (TextView) findViewById(R.id.second_text);
         thirdText = (TextView) findViewById(R.id.third_text);
@@ -124,8 +131,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (index) {
             case 0:
 // firstImage.setImageResource(R.drawable.XXXX); 需要的话自行修改
-                firstText.setTextColor(dark);
-                firstLayout.setBackgroundColor(gray);
+                firstImage.setTextColor(blue);
+                firstText.setTextColor(blue);
+
 // 如果fg1为空，则创建一个并添加到界面上
                 if (homeFragment == null) {
                     homeFragment = new HomeFragment();
@@ -133,12 +141,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
 // 如果不为空，则直接将它显示出来
                     fragmentTransaction.show(homeFragment);
+                    homeFragment.newInit();
                 }
+
                 break;
             case 1:
 // secondImage.setImageResource(R.drawable.XXXX);
-                secondText.setTextColor(dark);
-                secondLayout.setBackgroundColor(gray);
+                secondImage.setTextColor(blue);
+                secondText.setTextColor(blue);
+
                 if (reviewFragment== null) {
                     reviewFragment = new ReviewFragment();
                     fragmentTransaction.add(R.id.content, reviewFragment);
@@ -148,8 +159,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 2:
 // thirdImage.setImageResource(R.drawable.XXXX);
-                thirdText.setTextColor(dark);
-                thirdLayout.setBackgroundColor(gray);
+                thirdImage.setTextColor(blue);
+                thirdText.setTextColor(blue);
+
                 if (videoFragment == null) {
                     videoFragment = new VideoFragment();
                     fragmentTransaction.add(R.id.content, videoFragment);
@@ -159,8 +171,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 3:
 // fourthImage.setImageResource(R.drawable.XXXX);
-                fourthText.setTextColor(dark);
-                fourthLayout.setBackgroundColor(gray);
+                fourthImage.setTextColor(blue);
+                fourthText.setTextColor(blue);
+
                 if (shopFragment == null) {
                     shopFragment= new ShopFragment();
                     fragmentTransaction.add(R.id.content, shopFragment);
@@ -170,8 +183,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 4:
 // fifthImage.setImageResource(R.drawable.XXXX);
-                fifthText.setTextColor(dark);
-                fifthLayout.setBackgroundColor(gray);
+                fifthImage.setTextColor(blue);
+                fifthText.setTextColor(blue);
+
                 if (freindsFragment == null) {
                     freindsFragment= new FreindsFragment();
                     fragmentTransaction.add(R.id.content, freindsFragment);
@@ -187,20 +201,25 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void clearChioce() {
         // firstImage.setImageResource(R.drawable.XXX);
+        firstImage.setTextColor(gray);
         firstText.setTextColor(gray);
-        firstLayout.setBackgroundColor(white);
+
         // secondImage.setImageResource(R.drawable.XXX);
+        secondImage.setTextColor(gray);
         secondText.setTextColor(gray);
-        secondLayout.setBackgroundColor(white);
+
         // thirdImage.setImageResource(R.drawable.XXX);
+        thirdImage.setTextColor(gray);
         thirdText.setTextColor(gray);
-        thirdLayout.setBackgroundColor(white);
+
         // fourthImage.setImageResource(R.drawable.XXX);
+        fourthImage.setTextColor(gray);
         fourthText.setTextColor(gray);
-        fourthLayout.setBackgroundColor(white);
+
         // fifthImage.setImageResource(R.drawable.XXX);
+        fifthImage.setTextColor(gray);
         fifthText.setTextColor(gray);
-        fifthLayout.setBackgroundColor(white);
+
     }
     /**
      * 隐藏Fragment
