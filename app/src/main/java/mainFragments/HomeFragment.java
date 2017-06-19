@@ -37,8 +37,17 @@ import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.tencent.tmgp.ichinese.R;
 
-import java.io.File;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLDecoder;
+
+import okhttp3.OkHttpClient;
 import widget.CircleImageView;
 import widget.MyFragmentPagerAdapter;
 import widget.MyHomeRecyclerViewAdapter;
@@ -58,14 +67,12 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
     private InputMethodManager inputMethodManager;
     private Button toTopBtn;// 返回顶部的按钮
     private int scrollY = 0;// 标记上次滑动位置
-
+    String accessToken="";
     private MyFragmentPagerAdapter mAdapter;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private MyHomeRecyclerViewAdapter adapter;
-
     private OnSlideListener slideListener;
-
     public interface OnSlideListener{
         void onslide(int id);
     }
@@ -86,7 +93,7 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
         super.onDetach();
         slideListener = null;
     }
-
+    private Handler handler ;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -102,6 +109,7 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
         topBar=(LinearLayout)getActivity().findViewById(R.id.top_bar);
         topBar.setFocusable(true);
         topBar.setFocusableInTouchMode(true);
+        topBar.requestFocus();
         searchView=(SearchView)getActivity().findViewById(R.id.m_search);
         searchView.setIconifiedByDefault(false);
         searchView.setSubmitButtonEnabled(true);
@@ -155,6 +163,18 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
                 .build();
         ImageLoader.getInstance().init(config);
 
+
+
+        new Thread(){
+            @Override
+            public void run() {
+
+                accessToken=getAccessToken();
+              String result=getMeterials(accessToken);
+                System.out.println(result);
+
+            }
+        }.start();
 
         String[] list={"或许，最美的事不是留住时光，而是留住记忆，如最初相识的感觉一样，哪怕一个不经意的笑容，便是我们最怀念的故事。但愿，时光，如初见","fdsfdsg","ewq","rfds"};
         recyclerView=(RecyclerView)getActivity().findViewById(R.id.news_recycler_view);
@@ -218,7 +238,94 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
 
 
     }
+    public String getAccessToken(){
+        String result="";
+        try {
+            String spec="http://47.94.136.193/token";
+            URL url=new URL(spec);
+            HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestProperty("Content-Type", "application/json");
+            httpURLConnection.setRequestProperty("Charset","utf-8");
+            // 设置请求的超时时间
+            httpURLConnection.setReadTimeout(5000);
+            httpURLConnection.setConnectTimeout(5000);
 
+            int code=httpURLConnection.getResponseCode();
+            if (code==200){
+                // 读取响应
+                BufferedReader reader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                String lines;
+                String sb = "";
+                while ((lines = reader.readLine()) != null) {
+                    lines = URLDecoder.decode(lines, "utf-8");
+                    sb+=lines;
+                }
+
+
+                reader.close();
+                // 断开连接
+
+                JSONObject jsonObject = new JSONObject(sb);
+                result=jsonObject.get("access_token").toString();
+
+
+            }
+            httpURLConnection.disconnect();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public String getMeterials(String token){
+        String result="";
+        try {
+            String spec="http://47.94.136.193/meterials";
+            URL url=new URL(spec);
+            HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestProperty("Content-Type", "application/json");
+            httpURLConnection.setRequestProperty("Charset","utf-8");
+            // 设置请求的超时时间
+            httpURLConnection.setReadTimeout(5000);
+            httpURLConnection.setConnectTimeout(5000);
+            // 传递的数据
+            JSONObject obj = new JSONObject();
+            obj.put("accessToken",token);
+            OutputStream out = httpURLConnection.getOutputStream();
+            String content = String.valueOf(obj);
+            out.write(content.getBytes());
+            out.close();
+            int code=httpURLConnection.getResponseCode();
+            if (code==200){
+                // 读取响应
+                BufferedReader reader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+                String lines;
+                String sb = "";
+                while ((lines = reader.readLine()) != null) {
+                    lines = URLDecoder.decode(lines, "utf-8");
+                    sb+=lines;
+                }
+
+
+                reader.close();
+                // 断开连接
+
+                //JSONObject jsonObject = new JSONObject(sb);
+                result=sb;
+
+
+            }
+            httpURLConnection.disconnect();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public  void newInit(){
+        vpager.setCurrentItem(0);
+        scrollingView.smoothScrollTo(0,0);
+    }
     private void doOnBorderListener() {
         DisplayMetrics displayMetrics=new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);

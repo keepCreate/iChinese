@@ -68,12 +68,14 @@
                     android:layout_centerVertical="true"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <com.mikepenz.iconics.view.IconicsTextView
                         android:id="@+id/first_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:src="@android:drawable/ic_menu_compass" />
+                        android:text="{faw-home}"
+                        android:textSize="24sp"
+                        android:textColor="@color/gray"/>
 
                     <TextView
                         android:id="@+id/first_text"
@@ -82,7 +84,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
                         android:text="Home"
-                        android:textColor="#7597B3" />
+                        android:textColor="@color/gray" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -98,12 +100,14 @@
                     android:layout_centerVertical="true"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <com.mikepenz.iconics.view.IconicsTextView
                         android:id="@+id/second_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:src="@android:drawable/ic_menu_agenda" />
+                        android:text="{faw-book}"
+                        android:textColor="@color/gray"
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/second_text"
@@ -112,7 +116,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
                         android:text="Review"
-                        android:textColor="#7597B3" />
+                        android:textColor="@color/gray" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -128,12 +132,14 @@
                     android:layout_centerVertical="true"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <com.mikepenz.iconics.view.IconicsTextView
                         android:id="@+id/third_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:src="@android:drawable/ic_menu_always_landscape_portrait" />
+                        android:text="{faw-video-camera}"
+                        android:textColor="@color/gray"
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/third_text"
@@ -142,7 +148,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
                         android:text="Videos"
-                        android:textColor="#7597B3" />
+                        android:textColor="@color/gray" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -158,12 +164,14 @@
                     android:layout_centerVertical="true"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <com.mikepenz.iconics.view.IconicsTextView
                         android:id="@+id/fourth_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:src="@android:drawable/ic_menu_myplaces" />
+                        android:text="{faw-shopping-cart}"
+                        android:textColor="@color/gray"
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/fourth_text"
@@ -172,7 +180,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
                         android:text="Shop"
-                        android:textColor="#7597B3" />
+                        android:textColor="@color/gray" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -188,12 +196,14 @@
                     android:layout_centerVertical="true"
                     android:orientation="vertical">
 
-                    <ImageView
+                    <com.mikepenz.iconics.view.IconicsTextView
                         android:id="@+id/fifth_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:src="@android:drawable/ic_menu_share" />
+                        android:text="{faw-th-large}"
+                        android:textColor="@color/gray"
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/fifth_text"
@@ -202,7 +212,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="5dp"
                         android:text="Freinds"
-                        android:textColor="#7597B3" />
+                        android:textColor="@color/gray"/>
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

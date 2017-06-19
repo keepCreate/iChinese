@@ -176,7 +176,7 @@ public class RegisterActivity extends AppCompatActivity {
     public String getCode(String phone) {
         String result="";
         try {
-            String spec="http://47.94.136.193:3000/verify";
+            String spec="http://47.94.136.193/verify";
             URL url=new URL(spec);
             HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
             httpURLConnection.setRequestMethod("POST");
@@ -215,7 +215,7 @@ public class RegisterActivity extends AppCompatActivity {
     public int register(String username,String password,String phone) {
         int result=0;
         try {
-            String spec="http://47.94.136.193:3000/register";
+            String spec="http://47.94.136.193/register";
             URL url=new URL(spec);
             HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
             httpURLConnection.setRequestMethod("POST");

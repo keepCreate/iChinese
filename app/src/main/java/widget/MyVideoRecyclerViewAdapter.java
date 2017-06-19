@@ -1,5 +1,6 @@
 package widget;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -7,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tencent.tmgp.ichinese.NewsDetailActivity;
 import com.tencent.tmgp.ichinese.R;
+import com.tencent.tmgp.ichinese.VideoPlayActivity;
 
 import java.util.Calendar;
 
@@ -23,6 +27,8 @@ import mainFragments.VideoFragment;
 public class MyVideoRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int NORMAL_ITEM = 0;
     private static final int GROUP_ITEM = 1;
+    private FragmentActivity mContext;
+    String url="http://1253892043.vod2.myqcloud.com/ebdbed0cvodtransgzp1253892043/5aedd30d9031868222980779610/f0.f20.mp4";
     DisplayImageOptions options = new DisplayImageOptions.Builder()
             .showImageOnLoading(R.drawable.ic_menu_gallery) // resource or drawable
             .showImageForEmptyUri(R.drawable.ic_menu_slideshow) // resource or drawable
@@ -31,6 +37,7 @@ public class MyVideoRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
     private String[] mDataList;
     private LayoutInflater mLayoutInflater;
     public MyVideoRecyclerViewAdapter(VideoFragment mFragment, String[] mDataList) {
+        this.mContext=mFragment.getActivity();
         this.mFragment = mFragment;
         this.mDataList = mDataList;
         mLayoutInflater = LayoutInflater.from(mFragment.getActivity());
@@ -45,6 +52,7 @@ public class MyVideoRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
         if (i == NORMAL_ITEM) {
+
             return new NormalItemHolder(mLayoutInflater.inflate(R.layout.fragment_base_swipe_item, viewGroup, false));
         } else {
             return new GroupItemHolder(mLayoutInflater.inflate(R.layout.fragment_base_swipe_group_item, viewGroup, false));
@@ -56,17 +64,32 @@ public class MyVideoRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
      * @param i 数据源list的下标
      */
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder,final int i) {
        String str= mDataList[i];
 
         if (null == str)
             return;
 
         if (viewHolder instanceof GroupItemHolder) {
+
             bindGroupItem(str, (GroupItemHolder) viewHolder);
+            ((GroupItemHolder)viewHolder).view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    playVideo(url,i);
+
+                }
+            });
         } else {
             NormalItemHolder holder = (NormalItemHolder) viewHolder;
             bindNormalItem(str, holder.newsTitle, holder.newsIcon);
+            ((NormalItemHolder)viewHolder).view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    playVideo(url,i);
+
+                }
+            });
         }
     }
     @Override
@@ -120,24 +143,23 @@ public class MyVideoRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
 //        NewsListEntity entity = mDataList.get(pos);
 //        NewsDetailActivity.actionStart(mContext, entity.getNewsID(), entity.getRecommendAmount(), entity.getCommentAmount());
 //    }
-
+void playVideo(String url,int pos) {
+    Toast.makeText(mContext,"位置"+pos,Toast.LENGTH_SHORT).show();
+    VideoPlayActivity.actionStart(mContext,url);
+}
     /**
      * 新闻标题
      */
      class NormalItemHolder extends RecyclerView.ViewHolder {
         TextView newsTitle;
         ImageView newsIcon;
-
+        public View view;
         public NormalItemHolder(View itemView) {
             super(itemView);
+            this.view=itemView;
             newsTitle = (TextView) itemView.findViewById(R.id.base_swipe_item_title);
             newsIcon = (ImageView) itemView.findViewById(R.id.base_swipe_item_icon);
-            itemView.findViewById(R.id.base_swipe_item_container).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //showNewsDetail(getPosition());
-                }
-            });
+
         }
     }
 
@@ -146,9 +168,10 @@ public class MyVideoRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
      */
     class GroupItemHolder extends NormalItemHolder {
         TextView newsTime;
-
+        public View view;
         public GroupItemHolder(View itemView) {
             super(itemView);
+            this.view=itemView;
             newsTime = (TextView) itemView.findViewById(R.id.base_swipe_group_item_time);
         }
     }
