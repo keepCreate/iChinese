@@ -1,5 +1,6 @@
 package mainFragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -71,6 +72,27 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private MyHomeRecyclerViewAdapter adapter;
+    private OnSlideListener slideListener;
+    public interface OnSlideListener{
+        void onslide(int id);
+    }
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        try{
+            slideListener =(OnSlideListener) activity;
+        }catch(ClassCastException e){
+            throw new ClassCastException(activity.toString()+"must implement OnArticleSelectedListener");
+        }
+    }
+
+    //把传递进来的activity对象释放掉
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        slideListener = null;
+    }
     private Handler handler ;
     @Nullable
     @Override
@@ -95,8 +117,15 @@ public class HomeFragment extends android.support.v4.app.Fragment implements Vie
 
         circleImageView=(CircleImageView)getActivity().findViewById(R.id.userImage);
         Drawable drawable=getActivity().getDrawable(R.drawable.hugh);
-        circleImageView.setImageDrawable(drawable);
 
+        circleImageView.setImageDrawable(drawable);
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                slideListener.onslide(R.id.userImage);
+            }
+        });
 
         scrollingView=(ScrollView)getActivity().findViewById(R.id.home_scroll);
 
