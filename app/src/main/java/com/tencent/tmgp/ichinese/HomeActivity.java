@@ -178,7 +178,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mFirstX = ev.getX();
-                System.out.println("******************mfirst=" + mFirstX);
+
                 break;
             case MotionEvent.ACTION_MOVE:
                 float curX = ev.getX();
