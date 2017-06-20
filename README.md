@@ -1,2 +1,3 @@
 # iChinese
 >> Multy methods to teach Chinese
+>> more functions are coding... 
