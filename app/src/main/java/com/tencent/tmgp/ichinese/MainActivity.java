@@ -1,7 +1,9 @@
 package com.tencent.tmgp.ichinese;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     //跳过倒计时
+
     private CountDownTimer startCountDownTime(long time) {
 
         CountDownTimer timer = new CountDownTimer(time * 1000, 1000) {
