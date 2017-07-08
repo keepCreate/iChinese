@@ -26,7 +26,7 @@ android {
             abiFilters "armeabi", "armeabi-v7a", "x86"
         }
         applicationId "com.tencent.tmgp.ichinese"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"

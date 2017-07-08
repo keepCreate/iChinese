@@ -1,9 +1,12 @@
 package com.tencent.tmgp.ichinese;
 
+import android.Manifest;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,8 +28,10 @@ import java.net.URL;
 import java.net.URLDecoder;
 
 import widget.MsgHandler;
+import widget.SMSContentObserver;
 
 public class RegisterActivity extends AppCompatActivity {
+    private SMSContentObserver mObserver;
     Button btn_register;
     EditText getCode;
     TextView timer;
@@ -34,13 +39,31 @@ public class RegisterActivity extends AppCompatActivity {
     CountDownTimer countDownTimer2;
     EditText username,password,confirm,phone,verifyCode;
     String code="";
-    private Handler handler;
     // 消息
     private Message msg;
+    private Handler handler;
+
+    private  Handler smsHandler=new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            if (msg.what==1){
+                getCode.setText(msg.obj.toString());
+            }
+            return false;
+        }
+    });
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        ActivityCompat.requestPermissions(RegisterActivity.this, new String[]{Manifest.permission.READ_SMS},1);
+        mObserver=new SMSContentObserver(this,smsHandler);
+        this.getContentResolver().registerContentObserver(Uri.parse("content://sms/"),true,mObserver);
+
+
+
+
+
         btn_register=(Button)findViewById(R.id.button4);
         getCode=(EditText)findViewById(R.id.editText8);
         timer=(TextView)findViewById(R.id.textView10) ;
@@ -51,6 +74,12 @@ public class RegisterActivity extends AppCompatActivity {
         phone=(EditText)findViewById(R.id.editText7);
         btn_register.setClickable(false);
         handler = new MsgHandler(RegisterActivity.this);
+
+
+
+
+
+
         setTitle("Register");
         android.support.v7.app.ActionBar actionBar =getSupportActionBar();
         try {
@@ -91,6 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                    sendMsg.setClickable(false);
                    Toast.makeText(RegisterActivity.this, "验证码已发送，请注意查收", Toast.LENGTH_LONG).show();
+
                    countDownTimer2 = new CountDownTimer(60000, 1000) {
                        @Override
                        public void onTick(long millisUntilFinished) {
@@ -255,4 +285,11 @@ public class RegisterActivity extends AppCompatActivity {
         }
         return result;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
 }
